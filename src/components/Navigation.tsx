@@ -40,13 +40,12 @@ export function Navigation({ isAuthenticated = false, prepsRemaining = 0, userNa
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-2 group">
-            <div className="flex items-center transform group-hover:scale-105 transition-transform">
-              <img 
-                src="/lovable-uploads/48f4c6d7-5e7c-4458-b878-54a8a74f9042.png" 
-                alt="Hirescout Logo" 
-                className="h-10 w-auto"
-              />
+            <div className="w-8 h-8 bg-gradient-hero rounded-lg flex items-center justify-center transform group-hover:scale-110 transition-transform">
+              <Target className="w-5 h-5 text-white" />
             </div>
+            <span className="text-xl font-bold bg-gradient-hero bg-clip-text text-transparent">
+              Hirescout
+            </span>
           </Link>
 
           {/* Desktop Navigation */}

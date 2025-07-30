@@ -30,14 +30,6 @@ export default {
 					hover: 'hsl(var(--primary-hover))',
 					light: 'hsl(var(--primary-light))'
 				},
-				dark: {
-					DEFAULT: 'hsl(var(--dark))',
-					foreground: 'hsl(var(--dark-foreground))'
-				},
-				charcoal: {
-					DEFAULT: 'hsl(var(--charcoal))',
-					foreground: 'hsl(var(--charcoal-foreground))'
-				},
 				secondary: {
 					DEFAULT: 'hsl(var(--secondary))',
 					foreground: 'hsl(var(--secondary-foreground))'
@@ -46,14 +38,6 @@ export default {
 					DEFAULT: 'hsl(var(--success))',
 					foreground: 'hsl(var(--success-foreground))',
 					light: 'hsl(var(--success-light))'
-				},
-				electric: {
-					DEFAULT: 'hsl(var(--electric))',
-					foreground: 'hsl(var(--electric-foreground))'
-				},
-				coral: {
-					DEFAULT: 'hsl(var(--coral))',
-					foreground: 'hsl(var(--coral-foreground))'
 				},
 				destructive: {
 					DEFAULT: 'hsl(var(--destructive))',
@@ -124,14 +108,12 @@ export default {
 			boxShadow: {
 				'elegant': 'var(--shadow-elegant)',
 				'card': 'var(--shadow-card)',
-				'glow': 'var(--shadow-glow)',
-				'neon': 'var(--shadow-neon)'
+				'glow': 'var(--shadow-glow)'
 			},
 			backgroundImage: {
 				'gradient-hero': 'var(--gradient-hero)',
-				'gradient-neon': 'var(--gradient-neon)',
 				'gradient-card': 'var(--gradient-card)',
-				'gradient-dark': 'var(--gradient-dark)'
+				'gradient-success': 'var(--gradient-success)'
 			}
 		}
 	},
