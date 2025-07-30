@@ -2,64 +2,75 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Hirescout Design System - Modern, warm, and optimistic */
+/* Hirescout Design System - Inspired by 3D Character Interface */
 
 @layer base {
   :root {
-    /* Core Background & Text */
-    --background: 0 0% 99%;
-    --foreground: 224 15% 15%;
+    /* Core Background & Text - Dark Blue-Gray Theme */
+    --background: 210 15% 24%;
+    --foreground: 0 0% 98%;
 
     /* Card System */
-    --card: 0 0% 100%;
-    --card-foreground: 224 15% 15%;
+    --card: 210 12% 32%;
+    --card-foreground: 0 0% 98%;
 
     /* Interactive Elements */
-    --popover: 0 0% 100%;
-    --popover-foreground: 224 15% 15%;
+    --popover: 210 12% 32%;
+    --popover-foreground: 0 0% 98%;
 
-    /* Brand Colors - Deep Blue Primary */
-    --primary: 221 83% 53%;
+    /* Brand Colors - Coral/Pink Primary */
+    --primary: 345 82% 70%;
     --primary-foreground: 0 0% 100%;
-    --primary-hover: 221 83% 48%;
-    --primary-light: 221 83% 96%;
+    --primary-hover: 345 82% 65%;
+    --primary-light: 345 82% 95%;
 
-    /* Success Green */
-    --success: 142 76% 36%;
+    /* Success Green - Mint */
+    --success: 160 84% 63%;
     --success-foreground: 0 0% 100%;
-    --success-light: 142 76% 95%;
+    --success-light: 160 84% 95%;
 
     /* Energy Orange */
     --accent: 25 95% 53%;
     --accent-foreground: 0 0% 100%;
     --accent-light: 25 95% 96%;
 
-    /* Neutral System */
-    --secondary: 220 14% 96%;
-    --secondary-foreground: 224 15% 15%;
+    /* Purple Accent */
+    --purple: 265 89% 78%;
+    --purple-foreground: 0 0% 100%;
+    --purple-light: 265 89% 95%;
 
-    --muted: 220 14% 96%;
-    --muted-foreground: 220 9% 46%;
+    /* Yellow Accent */
+    --yellow: 48 100% 67%;
+    --yellow-foreground: 210 15% 24%;
+    --yellow-light: 48 100% 95%;
+
+    /* Neutral System */
+    --secondary: 210 12% 28%;
+    --secondary-foreground: 0 0% 85%;
+
+    --muted: 210 10% 26%;
+    --muted-foreground: 210 5% 65%;
 
     /* System Colors */
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 220 13% 91%;
-    --input: 220 13% 91%;
-    --ring: 221 83% 53%;
+    --border: 210 10% 35%;
+    --input: 210 10% 30%;
+    --ring: 345 82% 70%;
 
     --radius: 0.75rem;
 
     /* Gradients */
     --gradient-hero: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--accent)));
     --gradient-card: linear-gradient(145deg, hsl(var(--card)), hsl(var(--secondary)));
-    --gradient-success: linear-gradient(135deg, hsl(var(--success)), hsl(142 76% 42%));
+    --gradient-success: linear-gradient(135deg, hsl(var(--success)), hsl(var(--purple)));
+    --gradient-background: linear-gradient(135deg, hsl(210 15% 24%), hsl(210 18% 28%));
 
     /* Shadows */
-    --shadow-elegant: 0 10px 25px -5px hsl(var(--primary) / 0.1), 0 8px 10px -6px hsl(var(--primary) / 0.1);
-    --shadow-card: 0 4px 6px -1px hsl(220 22% 25% / 0.1), 0 2px 4px -2px hsl(220 22% 25% / 0.1);
-    --shadow-glow: 0 0 20px hsl(var(--primary) / 0.15);
+    --shadow-elegant: 0 10px 25px -5px hsl(var(--primary) / 0.3), 0 8px 10px -6px hsl(var(--primary) / 0.2);
+    --shadow-card: 0 8px 25px -5px hsl(210 15% 15% / 0.3), 0 4px 6px -2px hsl(210 15% 15% / 0.2);
+    --shadow-glow: 0 0 30px hsl(var(--primary) / 0.4);
 
     /* Animations */
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);

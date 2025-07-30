@@ -39,6 +39,16 @@ export default {
 					foreground: 'hsl(var(--success-foreground))',
 					light: 'hsl(var(--success-light))'
 				},
+				purple: {
+					DEFAULT: 'hsl(var(--purple))',
+					foreground: 'hsl(var(--purple-foreground))',
+					light: 'hsl(var(--purple-light))'
+				},
+				yellow: {
+					DEFAULT: 'hsl(var(--yellow))',
+					foreground: 'hsl(var(--yellow-foreground))',
+					light: 'hsl(var(--yellow-light))'
+				},
 				destructive: {
 					DEFAULT: 'hsl(var(--destructive))',
 					foreground: 'hsl(var(--destructive-foreground))'
@@ -113,7 +123,8 @@ export default {
 			backgroundImage: {
 				'gradient-hero': 'var(--gradient-hero)',
 				'gradient-card': 'var(--gradient-card)',
-				'gradient-success': 'var(--gradient-success)'
+				'gradient-success': 'var(--gradient-success)',
+				'gradient-background': 'var(--gradient-background)'
 			}
 		}
 	},
