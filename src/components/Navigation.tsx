@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
+import { useAuth } from "@/contexts/AuthContext";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
@@ -12,9 +13,15 @@ interface NavigationProps {
   userName?: string;
 }
 
-export function Navigation({ isAuthenticated = false, prepsRemaining = 0, userName = "User" }: NavigationProps) {
+export function Navigation({ isAuthenticated, prepsRemaining, userName }: NavigationProps = {}) {
   const location = useLocation();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { user, profile, signOut, isAdmin } = useAuth();
+  
+  // Use auth context values if no props provided
+  const finalIsAuthenticated = isAuthenticated ?? !!user;
+  const finalPrepsRemaining = prepsRemaining ?? profile?.prep_count ?? 0;
+  const finalUserName = userName ?? profile?.name ?? "User";
 
   const isActive = (path: string) => location.pathname === path;
 
@@ -28,9 +35,10 @@ export function Navigation({ isAuthenticated = false, prepsRemaining = 0, userNa
   const authenticatedLinks = [
     { path: "/profile", label: "Profile" },
     ...commonLinks,
+    ...(isAdmin ? [{ path: "/admin", label: "Admin" }] : []),
   ];
 
-  const links = isAuthenticated ? authenticatedLinks : publicLinks;
+  const links = finalIsAuthenticated ? authenticatedLinks : publicLinks;
 
   return (
     <nav className="sticky top-0 z-50 w-full border-b bg-background/80 backdrop-blur-md">
@@ -64,21 +72,21 @@ export function Navigation({ isAuthenticated = false, prepsRemaining = 0, userNa
           {/* Right Side */}
           <div className="flex items-center space-x-4">
             {/* Prep Counter (when authenticated) */}
-            {isAuthenticated && (
+            {finalIsAuthenticated && (
               <Badge variant="secondary" className="hidden md:flex items-center space-x-1 bg-primary-light text-primary">
                 <Target className="w-3 h-3" />
-                <span>Preps: {prepsRemaining}</span>
+                <span>Preps: {finalPrepsRemaining}</span>
               </Badge>
             )}
 
             {/* Authentication Section */}
-            {isAuthenticated ? (
+            {finalIsAuthenticated ? (
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button variant="ghost" className="relative h-8 w-8 rounded-full">
                     <Avatar className="h-8 w-8">
                       <AvatarFallback className="bg-primary text-primary-foreground">
-                        {userName.charAt(0).toUpperCase()}
+                        {finalUserName.charAt(0).toUpperCase()}
                       </AvatarFallback>
                     </Avatar>
                   </Button>
@@ -90,7 +98,7 @@ export function Navigation({ isAuthenticated = false, prepsRemaining = 0, userNa
                       Profile
                     </Link>
                   </DropdownMenuItem>
-                  <DropdownMenuItem>
+                  <DropdownMenuItem onClick={signOut}>
                     <LogOut className="mr-2 h-4 w-4" />
                     Log Out
                   </DropdownMenuItem>
@@ -138,16 +146,16 @@ export function Navigation({ isAuthenticated = false, prepsRemaining = 0, userNa
                 </Link>
               ))}
               
-              {isAuthenticated && (
+              {finalIsAuthenticated && (
                 <div className="px-3 py-2">
                   <Badge variant="secondary" className="bg-primary-light text-primary">
                     <Target className="w-3 h-3 mr-1" />
-                    Preps: {prepsRemaining}
+                    Preps: {finalPrepsRemaining}
                   </Badge>
                 </div>
               )}
 
-              {!isAuthenticated && (
+              {!finalIsAuthenticated && (
                 <div className="px-3 py-2 space-y-2">
                   <Button variant="ghost" className="w-full justify-start" asChild>
                     <Link to="/login" onClick={() => setIsMobileMenuOpen(false)}>

@@ -1,5 +1,6 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "@/contexts/AuthContext";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -7,6 +8,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Navigation } from "@/components/Navigation";
 import { OnboardingForm } from "@/components/OnboardingForm";
 import { Target, ArrowRight, Eye, EyeOff } from "lucide-react";
+import { toast } from "@/hooks/use-toast";
 
 export default function Signup() {
   const [formData, setFormData] = useState({
@@ -19,6 +21,8 @@ export default function Signup() {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [showOnboarding, setShowOnboarding] = useState(false);
+  const { signUp, user, loading: authLoading } = useAuth();
+  const navigate = useNavigate();
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
@@ -28,26 +32,44 @@ export default function Signup() {
   };
 
 
+  // Redirect if already logged in
+  useEffect(() => {
+    if (user && !authLoading) {
+      navigate('/dashboard');
+    }
+  }, [user, authLoading, navigate]);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
     if (formData.password !== formData.confirmPassword) {
-      alert("Passwords don't match");
+      toast({
+        title: "Error",
+        description: "Passwords don't match",
+        variant: "destructive",
+      });
       return;
     }
     
     setIsLoading(true);
     
-    // Simulate signup process
-    setTimeout(() => {
-      setIsLoading(false);
+    const result = await signUp(formData.email, formData.password, formData.name);
+    
+    if (result.success) {
       setShowOnboarding(true);
-      // In a real app, handle registration here
-    }, 1500);
+    } else {
+      toast({
+        title: "Error",
+        description: result.error || "Failed to create account",
+        variant: "destructive",
+      });
+    }
+    
+    setIsLoading(false);
   };
 
   if (showOnboarding) {
-    return <OnboardingForm onComplete={() => setShowOnboarding(false)} />;
+    return <OnboardingForm onComplete={() => navigate('/dashboard')} />;
   }
 
   return (

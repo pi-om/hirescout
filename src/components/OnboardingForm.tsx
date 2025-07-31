@@ -1,10 +1,12 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "@/contexts/AuthContext";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Upload, FileText, CheckCircle, ArrowRight, GraduationCap } from "lucide-react";
+import { toast } from "@/hooks/use-toast";
 
 interface OnboardingFormProps {
   onComplete: () => void;
@@ -17,6 +19,7 @@ export function OnboardingForm({ onComplete }: OnboardingFormProps) {
     graduationYear: "",
     major: ""
   });
+  const { updateProfile } = useAuth();
   const [resumeFile, setResumeFile] = useState<File | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -36,13 +39,25 @@ export function OnboardingForm({ onComplete }: OnboardingFormProps) {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-
-    // Simulate saving data
-    setTimeout(() => {
-      setIsSubmitting(false);
+    
+    const result = await updateProfile({
+      college: formData.college,
+      course: formData.major,
+      year: formData.graduationYear,
+      resume_url: resumeFile ? resumeFile.name : null,
+    });
+    
+    if (result.success) {
       onComplete();
-      navigate("/dashboard");
-    }, 2000);
+    } else {
+      toast({
+        title: "Error",
+        description: result.error || "Failed to update profile",
+        variant: "destructive",
+      });
+    }
+    
+    setIsSubmitting(false);
   };
 
   const handleSkip = () => {
