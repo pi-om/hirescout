@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState, ReactNode } from 'react'
 import { User, Session } from '@supabase/supabase-js'
-import { supabase } from '@/lib/supabase'
+import { supabase } from '@/integrations/supabase/client'
 import { toast } from '@/hooks/use-toast'
 
 type Profile = {
@@ -76,7 +76,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         .single()
 
       if (error) throw error
-      setProfile(data)
+      setProfile(data as Profile)
     } catch (error) {
       console.error('Error fetching profile:', error)
     } finally {
@@ -107,26 +107,22 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       const { data, error } = await supabase.auth.signUp({
         email,
         password,
+        options: {
+          emailRedirectTo: `${window.location.origin}/`,
+          data: {
+            name: name
+          }
+        }
       })
 
       if (error) throw error
 
+      // Profile will be created automatically by the trigger
+      // Log usage analytics if user was created
       if (data.user) {
-        // Create profile
-        const { error: profileError } = await supabase
-          .from('profiles')
-          .insert({
-            id: data.user.id,
-            email,
-            name,
-            role: 'user',
-            prep_count: 5, // Default prep count
-          })
-
-        if (profileError) throw profileError
-
-        // Log usage analytics
-        logUsageAnalytics('sign_up', { email, name })
+        setTimeout(() => {
+          logUsageAnalytics('sign_up', { email, name })
+        }, 0)
       }
 
       return { success: true }
@@ -167,13 +163,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }
 
   const logUsageAnalytics = async (action: string, details: any) => {
-    if (!user) return
+    const currentUser = user || (await supabase.auth.getUser()).data.user
+    if (!currentUser) return
 
     try {
       await supabase
         .from('usage_analytics')
         .insert({
-          user_id: user.id,
+          user_id: currentUser.id,
           action,
           details,
         })
