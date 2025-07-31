@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Navigation } from "@/components/Navigation";
+import { OnboardingForm } from "@/components/OnboardingForm";
 import { Target, ArrowRight, Eye, EyeOff } from "lucide-react";
 
 export default function Signup() {
@@ -17,6 +18,7 @@ export default function Signup() {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [showOnboarding, setShowOnboarding] = useState(false);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
@@ -39,9 +41,14 @@ export default function Signup() {
     // Simulate signup process
     setTimeout(() => {
       setIsLoading(false);
+      setShowOnboarding(true);
       // In a real app, handle registration here
     }, 1500);
   };
+
+  if (showOnboarding) {
+    return <OnboardingForm onComplete={() => setShowOnboarding(false)} />;
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-primary-light/20 to-accent-light/20">
