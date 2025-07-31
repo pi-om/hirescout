@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Navigation } from "@/components/Navigation";
-import { Target, ArrowRight, Upload, CheckCircle, Eye, EyeOff } from "lucide-react";
+import { Target, ArrowRight, Eye, EyeOff } from "lucide-react";
 
 export default function Signup() {
   const [formData, setFormData] = useState({
@@ -17,7 +17,6 @@ export default function Signup() {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [resumeFile, setResumeFile] = useState<File | null>(null);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
@@ -26,11 +25,6 @@ export default function Signup() {
     });
   };
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files[0]) {
-      setResumeFile(e.target.files[0]);
-    }
-  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -161,39 +155,6 @@ export default function Signup() {
                   </div>
                 </div>
 
-                <div className="space-y-2">
-                  <Label htmlFor="resume">Resume (Optional)</Label>
-                  <div className="relative">
-                    <Input
-                      id="resume"
-                      type="file"
-                      accept=".pdf,.doc,.docx"
-                      onChange={handleFileChange}
-                      className="hidden"
-                    />
-                    <Button
-                      type="button"
-                      variant="outline"
-                      className="w-full justify-start"
-                      onClick={() => document.getElementById('resume')?.click()}
-                    >
-                      {resumeFile ? (
-                        <div className="flex items-center space-x-2">
-                          <CheckCircle className="w-4 h-4 text-success" />
-                          <span>{resumeFile.name}</span>
-                        </div>
-                      ) : (
-                        <div className="flex items-center space-x-2">
-                          <Upload className="w-4 h-4" />
-                          <span>Upload Resume</span>
-                        </div>
-                      )}
-                    </Button>
-                  </div>
-                  <p className="text-xs text-muted-foreground">
-                    Upload your resume for personalized interview questions
-                  </p>
-                </div>
               </CardContent>
               
               <CardFooter className="flex flex-col space-y-4">
