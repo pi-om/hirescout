@@ -18,18 +18,16 @@ export function Navigation({ isAuthenticated = false, prepsRemaining = 0, userNa
 
   const isActive = (path: string) => location.pathname === path;
 
-  const publicLinks = [
-    { path: "/features", label: "Features" },
+  const commonLinks = [
+    { path: "/", label: "Homepage" },
     { path: "/demo", label: "Demo" },
     { path: "/contact", label: "Contact" },
   ];
 
+  const publicLinks = [...commonLinks];
   const authenticatedLinks = [
-    { path: "/dashboard", label: "Dashboard" },
-    { path: "/reports", label: "Reports" },
-    { path: "/features", label: "Features" },
-    { path: "/demo", label: "Demo" },
-    { path: "/contact", label: "Contact" },
+    { path: "/profile", label: "Profile" },
+    ...commonLinks,
   ];
 
   const links = isAuthenticated ? authenticatedLinks : publicLinks;

@@ -169,8 +169,37 @@ export default function Landing() {
         </div>
       </section>
 
-      {/* How it Works */}
+      {/* Demo Section */}
       <section className="py-20 bg-accent-light/30">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+              See Hirescout in Action
+            </h2>
+            <p className="text-lg text-muted-foreground">
+              Watch how our AI-powered platform works
+            </p>
+          </div>
+
+          <div className="max-w-4xl mx-auto">
+            <Card className="overflow-hidden bg-card/50 backdrop-blur-sm border-primary/20">
+              <CardContent className="p-0">
+                <div className="relative aspect-video bg-muted flex items-center justify-center">
+                  <div className="flex flex-col items-center space-y-4">
+                    <div className="w-20 h-20 bg-primary/20 rounded-full flex items-center justify-center">
+                      <Target className="w-8 h-8 text-primary" />
+                    </div>
+                    <p className="text-muted-foreground">Demo video will be embedded here</p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+
+      {/* How it Works */}
+      <section className="py-20">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
